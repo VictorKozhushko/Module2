@@ -1,5 +1,7 @@
 package university;
 
+import university.exceptions.EmptyGroupException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,9 @@ public class Group {
         }
     }
 
-    Group(String code, Student[] students){
+    Group(String code, Student[] students) {
         this.code = code;
-        for ( Student stud: students) {
+        for (Student stud : students) {
             this.students.add(stud);
         }
     }
@@ -35,30 +37,30 @@ public class Group {
         return students;
     }
 
-    void excludeStudent(Student student) throws EmptyGroup{
+    void excludeStudent(Student student) throws EmptyGroupException {
 
         students.remove(student);
         if (students.isEmpty())
-            throw new EmptyGroup();
+            throw new EmptyGroupException();
     }
 
-    int numberStudents(){
+    int numberStudents() {
         return students.size();
     }
 
-    String getCode(){
+    String getCode() {
         return code;
     }
 
-    double getAverage(String subj){
-        double mark=0.;
+    double getAverage(String subj) {
+        double mark = 0.;
 
-        for (Student std: students) {
-            mark+=std.subjects.get(subj);
+        for (Student std : students) {
+            mark += std.subjects.get(subj);
         }
         int num = students.size();
 
-        return mark/num;
+        return mark / num;
     }
 
 
