@@ -4,9 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Ship implements Runnable {
 
-    Dock dock;
-    int loading;
-    int unloading;
+    private Dock dock;
+    private int loading;
+    private int unloading;
 
     Ship(Dock dock, int unloading, int loading) {
         this.dock = dock;
