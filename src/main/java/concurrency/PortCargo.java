@@ -1,5 +1,7 @@
 package concurrency;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -7,33 +9,43 @@ public class PortCargo {
 
     public static void main(String[] args) {
 
-        Dock dock = new Dock(1000);
+        Dock dock = new Dock("Таганрог", 200);
 
         System.out.println(dock);
 
-        int[] unloadContainers = {20, 300, 50, 80, 40, 150, 20, 70, 90, 150};
-        int[] loadContainers = {80, 250, 90, 100, 60, 180, 50, 100, 120, 170};
-
-        int differenceContainers = 0;
+        List<Ship> shipArray = new CopyOnWriteArrayList<Ship>();
 
         for (int i = 0; i < 10; i++)
-            differenceContainers = differenceContainers + unloadContainers[i] - loadContainers[i];
+            shipArray.add(new Ship());
 
-        System.out.println("Разница в контейнерах: " + differenceContainers);
+        Berth[] berths = {new Berth(dock, "Причал 1"),
+                new Berth(dock, "Причал 2"),
+                new Berth(dock, "Причал 3")};
 
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
-
-        for (int i = 0; i < 10; i++) {
-            Runnable ship = new Ship(dock, unloadContainers[i], loadContainers[i]);
-            executorService.execute(ship);
+        while (shipArray.size() != 0) {
+            for (Berth berth : berths) {
+                for (Ship ship : shipArray) {
+                    if (berth.canShipping(ship)) {
+                        berth.shipping(ship);
+                        shipArray.remove(ship);
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }
         }
-        executorService.shutdown();
 
-        while (!executorService.isTerminated()) {
+        try {
+            berths[0].thread.join();
+            berths[1].thread.join();
+            berths[2].thread.join();
+            System.out.println("Выполнены разгрузочно-погрузочные работы.");
+        } catch (InterruptedException exc) {
+            exc.printStackTrace();
         }
-
-        System.out.println("Выполнены разгрузочно-погрузочные работы.");
 
         System.out.println(dock);
+
     }
 }

@@ -1,43 +1,38 @@
 package concurrency;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Ship implements Runnable {
+public class Ship {
 
-    private Dock dock;
     private int loading;
     private int unloading;
+    private long shipID;
+    Random random = new Random();
 
-    Ship(Dock dock, int unloading, int loading) {
-        this.dock = dock;
+    Ship(int unloading, int loading) {
+
         this.loading = loading;
         this.unloading = unloading;
-        new Thread(this, "Корабль в порту");
+        this.shipID = Math.abs(random.nextLong());
+
     }
 
-    @Override
-    public void run() {
-        int unloaded = 0;
-        int loaded = 0;
-        while (unloading != unloaded) {
-            dock.unloading();
-            try {
-                TimeUnit.MILLISECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            unloaded++;
-        }
+    Ship() {
+        this.loading = random.nextInt(50);
+        this.unloading = random.nextInt(50);
+        this.shipID = Math.abs(random.nextLong());
+    }
 
-        while (loading != loaded) {
-            dock.loading();
-            try {
-                TimeUnit.MILLISECONDS.sleep(15);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            loaded++;
-        }
-        System.out.println("С корабля разгрузили " + unloading + " и на корабль погрузил " + loading + " контейнеров " + Thread.currentThread().getName());
+    int getLoading() {
+        return this.loading;
+    }
+
+    int getUnloading() {
+        return this.unloading;
+    }
+
+    public long getShipID() {
+        return shipID;
     }
 }
