@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.google;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class GoogleCloudHomePage {
-
 
     private static final String HOMEPAGE_URL = "https://cloud.google.com";
 

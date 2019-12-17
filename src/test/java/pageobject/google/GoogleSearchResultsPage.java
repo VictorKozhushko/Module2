@@ -1,9 +1,10 @@
-package pageobject;
+package pageobject.google;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageobject.google.GoogleComputingEnginePage;
 
 public class GoogleSearchResultsPage {
 

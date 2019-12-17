@@ -1,9 +1,11 @@
-package pageobject;
+package pageobject.pastebin;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PasteBinHomePage {
@@ -40,8 +42,8 @@ public class PasteBinHomePage {
 
     public PasteBinHomePage openPage() {
         driver.get(HOMEPAGE_ULR);
-        new WebDriverWait(driver, 10);
-//                .until(CustomConditions.jQueryAJAXsCompleted());
+        new WebDriverWait(driver, 12)
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("paste_code")));
         return this;
     }
 

@@ -1,9 +1,10 @@
-package pageobject;
+package pageobject.google;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleComputingEnginePage {
@@ -49,26 +50,32 @@ public class GoogleComputingEnginePage {
     @FindBy(id = "select_option_84")
     private WebElement select1Year;
 
-    @FindBy(xpath = "//button[text()='Add to Estimate' and not(disabled='disabled')]")
+    @FindBy(xpath = "//button[@ng-click='listingCtrl.addComputeServer(ComputeEngineForm);']")
     private WebElement addToEstimate;
 
-    @FindBy(xpath = "//button[text()='Email Estimate']")
+    @FindBy(xpath = "//button[@ng-click='cloudCartCtrl.showEmailForm();']")
     private WebElement emailEstimate;
 
-    @FindBy(xpath = "//button[@id='email_quote']")
-    private WebElement emailQuote;
+    @FindBy(xpath = "//iframe[@id = 'myFrame']")
+    private WebElement frameEmailEstimate;
 
-    @FindBy(xpath = "//input[@id='input_340'")
+    @FindBy(xpath = "//input[@id='input_412']")
     private WebElement emailField;
+
+    @FindBy(xpath = "//button[@ng-click='emailQuote.emailQuote(true); emailQuote.$mdDialog.hide()'")
+    private WebElement sendEmail;
 
     public GoogleComputingEnginePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public GoogleComputingEnginePage fillForm() {
-//        selectAddGPU.click();
+    public void waitGoogleComputingEngineElement(WebElement webElement) {
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.visibilityOf(webElement));
+    }
 
+    public GoogleComputingEnginePage fillForm() {
         driver.switchTo().frame(0);
         numberOfInstances.click();
         numberOfInstances.sendKeys("4");
@@ -78,26 +85,34 @@ public class GoogleComputingEnginePage {
         selectAddGPU.click();
         selectGPUNumber.click();
         select1GPU.click();
+        waitGoogleComputingEngineElement(selectSSD);
         selectSSD.click();
+        waitGoogleComputingEngineElement(select2x375);
         select2x375.click();
         selectCenterLocation.click();
-        new WebDriverWait(driver, 10);
+        waitGoogleComputingEngineElement(selectFrankfurt);
         selectFrankfurt.click();
-        new WebDriverWait(driver, 10);
         selectCommittedUsage.click();
-        new WebDriverWait(driver, 10);
+        waitGoogleComputingEngineElement(select1Year);
         select1Year.click();
-        addToEstimate.click();
         return this;
     }
 
+//    double getCost() {
+//        driver.switchTo().fr
+//    }
+
     public GoogleComputingEnginePage estimateViaEmail(String emailAddress) {
         driver.switchTo().frame(0);
-        addToEstimate.submit();
+        addToEstimate.click();
+        waitGoogleComputingEngineElement(emailEstimate);
         emailEstimate.click();
-        emailQuote.click();
+//        waitGoogleComputingEngineElement(frameEmailEstimate);
+//        driver.switchTo().frame(frameEmailEstimate);
+        waitGoogleComputingEngineElement(emailField);
         emailField.click();
         emailField.sendKeys(emailAddress);
+        sendEmail.click();
         return this;
     }
 

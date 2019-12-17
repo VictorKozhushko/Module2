@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.tenminutemail;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
