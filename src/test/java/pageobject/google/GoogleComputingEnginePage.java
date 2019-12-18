@@ -53,6 +53,9 @@ public class GoogleComputingEnginePage {
     @FindBy(xpath = "//button[@ng-click='listingCtrl.addComputeServer(ComputeEngineForm);']")
     private WebElement addToEstimate;
 
+    @FindBy(xpath = "//b[@class='ng-binding']")
+    private WebElement cost;
+
     @FindBy(xpath = "//button[@ng-click='cloudCartCtrl.showEmailForm();']")
     private WebElement emailEstimate;
 
@@ -62,7 +65,7 @@ public class GoogleComputingEnginePage {
     @FindBy(xpath = "//input[@id='input_412']")
     private WebElement emailField;
 
-    @FindBy(xpath = "//button[@ng-click='emailQuote.emailQuote(true); emailQuote.$mdDialog.hide()'")
+    @FindBy(xpath = "//button[@ng-click='emailQuote.emailQuote(true); emailQuote.$mdDialog.hide()']")
     private WebElement sendEmail;
 
     public GoogleComputingEnginePage(WebDriver driver) {
@@ -71,16 +74,17 @@ public class GoogleComputingEnginePage {
     }
 
     public void waitGoogleComputingEngineElement(WebElement webElement) {
-        new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.visibilityOf(webElement));
+        new WebDriverWait(driver, 15)
+                .until(ExpectedConditions.elementToBeClickable(webElement));
     }
 
     public GoogleComputingEnginePage fillForm() {
         driver.switchTo().frame(0);
+        driver.manage().window().maximize();
         numberOfInstances.click();
         numberOfInstances.sendKeys("4");
         selectMachineType.click();
-        new WebDriverWait(driver, 5);
+        waitGoogleComputingEngineElement(selectn1standart8);
         selectn1standart8.click();
         selectAddGPU.click();
         selectGPUNumber.click();
@@ -98,17 +102,19 @@ public class GoogleComputingEnginePage {
         return this;
     }
 
-//    double getCost() {
-//        driver.switchTo().fr
-//    }
-
-    public GoogleComputingEnginePage estimateViaEmail(String emailAddress) {
+    public String getCost() {
         driver.switchTo().frame(0);
         addToEstimate.click();
+        waitGoogleComputingEngineElement(cost);
+        String string = cost.getText();
+        String words[] = string.split(" ");
+        return words[4];
+    }
+
+    public GoogleComputingEnginePage estimateViaEmail(String emailAddress) {
+
         waitGoogleComputingEngineElement(emailEstimate);
         emailEstimate.click();
-//        waitGoogleComputingEngineElement(frameEmailEstimate);
-//        driver.switchTo().frame(frameEmailEstimate);
         waitGoogleComputingEngineElement(emailField);
         emailField.click();
         emailField.sendKeys(emailAddress);

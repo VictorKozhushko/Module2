@@ -49,13 +49,15 @@ public class WebDriverGoogleCloudCalculatorTest {
 
         driver.switchTo().window(tabGoogleComputingEngine);
 
-//        double priceGoogleComputing = computingEnginePage.getCost();
+        String priceGoogleComputing = computingEnginePage.getCost();
 
         computingEnginePage.estimateViaEmail(email);
 
         driver.switchTo().window(tab10MinutEmail);
 
-//        Assert.assertEquals();
+        String priceFromEmail = tenMinutEmailPage.getPriceFromEmail();
+
+        Assert.assertEquals(priceGoogleComputing, priceFromEmail);
 
     }
 
