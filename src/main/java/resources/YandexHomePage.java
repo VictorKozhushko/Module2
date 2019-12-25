@@ -20,23 +20,23 @@ public class YandexHomePage {
         PageFactory.initElements(driver, this);
     }
 
-    public YandexLogInToAccountPage loginToYandex(){
+    public YandexLogInAccountPage loginToYandex(){
 
         driver.get(START_URL);
-        By by = By.xpath("//a[@class='button desk-notif-card__login-enter-expanded button_theme_gray i-bem button_js_inited']");
+        By by = By.xpath("//a[@class='button desk-notif-card__login-enter-expanded button_theme_gray i-bem']");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        new WebDriverWait(driver, 5)
+        new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOf(driver.findElement(by)));
 
         login = driver.findElement(by);
         login.click();
 
-        return new YandexLogInToAccountPage(driver);
+        return new YandexLogInAccountPage(driver);
     }
 
 }
