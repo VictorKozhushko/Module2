@@ -1,11 +1,15 @@
 package test;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import resources.*;
+import taf.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class LoginYandexTest {
@@ -22,12 +26,36 @@ public class LoginYandexTest {
         driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
         YandexLogInAccountPage yandexLogInAccountPage = new YandexHomePage(driver).loginToYandex();
         YandexLogInPasswordPage yandexLogInPasswordPage = yandexLogInAccountPage.loginToAccound();
-        Thread.sleep(1000);
+
         YandexAccountPage yandexAccountPage = yandexLogInPasswordPage.loginAccount();
-        Thread.sleep(2000);
+        String yandexTab = driver.getWindowHandle();
+
         YandexDiskPage yandexDiskPage = yandexAccountPage.switchToDisk();
-        Thread.sleep(1000);
-                yandexDiskPage.createFile();
+
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+
+        tabs.remove(yandexTab);
+        String yandexDriver = tabs.get(0);
+
+        driver.switchTo().window(yandexDriver);
+
+        String yandexWordTab;
+
+        YandexWord yandexWord = yandexDiskPage.createFile();
+        tabs = new ArrayList<>(driver.getWindowHandles());
+
+        tabs.remove(yandexTab);
+        tabs.remove(yandexDriver);
+        yandexWordTab = tabs.get(0);
+
+        driver.switchTo().window(yandexWordTab);
+        By frame = By.tagName("iframe");
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(frame));
+        driver.switchTo().frame(0);
+
+        yandexWord.sendText("Hello world!");
+        Thread.sleep(10000);
+        driver.close();
 
     }
 
