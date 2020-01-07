@@ -29,7 +29,7 @@ public class YandexHomePage {
 
         driver.get(START_URL);
 
-        By loginButton = By.xpath("//a[@class='button desk-notif-card__login-enter-expanded button_theme_gray i-bem']");
+        By loginButton = By.xpath("//a[contains(@class, 'desk-notif-card__login-enter-expanded')]");
         waitYandexHomePage(loginButton);
 
         login = driver.findElement(loginButton);

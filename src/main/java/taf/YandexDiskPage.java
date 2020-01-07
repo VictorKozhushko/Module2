@@ -29,7 +29,7 @@ public class YandexDiskPage {
 
         driver.manage().window().maximize();
 
-        By button = By.xpath("//button[@class='control button2 button2_view_default button2_tone_default button2_size_n button2_theme_raised button2_width_max']");
+        By button = By.xpath("//button[contains(@class, 'button2_tone_default')]");
         waitYandexDiskPage(button);
         createFile = driver.findElement(button);
         createFile.click();
@@ -40,5 +40,15 @@ public class YandexDiskPage {
         textFile.click();
 
         return new YandexWord(driver);
+    }
+
+    public YandexDiskPage deleteFile(String filename){
+        By document = By.xpath("//span[contains(text(), '"+filename+"')]");
+        WebElement doc = driver.findElement(document);
+        doc.click();
+        By deleteItem = By.xpath("//button[contains(@class, 'groupable-buttons__visible-button_name_delete')]");
+        WebElement delete = driver.findElement(deleteItem);
+        delete.click();
+        return this;
     }
 }

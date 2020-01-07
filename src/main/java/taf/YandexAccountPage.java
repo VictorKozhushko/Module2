@@ -30,10 +30,11 @@ public class YandexAccountPage {
     public YandexDiskPage switchToDisk() {
 
         By diskButton = By.xpath("//a[@data-id='disk']");
+        waitYandexAccountPage(diskButton);
         disk = driver.findElement(diskButton);
         disk.click();
 
-        By advertismentWindow = By.xpath("//button[@class='control button2 button2_view_classic button2_size_s button2_theme_clear dialog__close']");
+        By advertismentWindow = By.xpath("//button[contains(@class, 'button2_view_classic')]");
         advertisment = driver.findElements(advertismentWindow);
         if (advertisment.size() != 0) {
             advertisment.get(0).click();
