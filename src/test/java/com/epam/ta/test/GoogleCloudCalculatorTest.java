@@ -1,27 +1,18 @@
-package test;
+package com.epam.ta.test;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobject.google.GoogleCloudHomePage;
-import pageobject.google.GoogleComputingEnginePage;
-import pageobject.google.GoogleSearchResultsPage;
-import pageobject.tenminutemail.TenMinutEmailPage;
+import com.epam.ta.page.google.GoogleCloudHomePage;
+import com.epam.ta.page.google.GoogleComputingEnginePage;
+import com.epam.ta.page.google.GoogleSearchResultsPage;
+import com.epam.ta.page.tenminutes.TenMinutEmailPage;
 
 import java.util.ArrayList;
 
-public class WebDriverGoogleCloudCalculatorTest {
+public class GoogleCloudCalculatorTest extends CommonConditions {
 
-    private WebDriver driver;
     private static final String SEARCH = "Google Cloud Platform Pricing Calculator";
-
-    @BeforeMethod(alwaysRun = true)
-    public void browserSetup() {
-        driver = new ChromeDriver();
-    }
 
     @Test(description = "Test google cloud platform price calculator")
     public void googleCloudCalulatorTest() {
@@ -59,11 +50,5 @@ public class WebDriverGoogleCloudCalculatorTest {
         Assert.assertEquals(priceGoogleComputing, priceFromEmail);
 
     }
-
-//    @AfterMethod(alwaysRun = true)
-//    public void browserTearDown() {
-//        driver.quit();
-//        driver = null;
-//    }
 
 }
