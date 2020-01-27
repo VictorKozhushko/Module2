@@ -1,7 +1,10 @@
 package com.epam.ta.page;
 
+import com.epam.ta.util.TestListener;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Listeners;
 
+@Listeners({TestListener.class})
 public abstract class AbstractPage {
 
     protected WebDriver driver;

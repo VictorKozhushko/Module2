@@ -1,6 +1,7 @@
 package com.epam.ta.page.google;
 
 import com.epam.ta.page.AbstractPage;
+import com.epam.ta.service.TestDataReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleComputingEnginePage extends AbstractPage {
 
-    @FindBy(id = "input_53")
+    @FindBy(xpath = "//input[@id='input_53']")
     private WebElement numberOfInstances;
 
     @FindBy(id = "select_option_218")
@@ -49,6 +50,9 @@ public class GoogleComputingEnginePage extends AbstractPage {
     @FindBy(id = "select_option_181")
     private WebElement selectFrankfurt;
 
+    @FindBy(id = "select_option_185")
+    private WebElement selectOsaka;
+
     @FindBy(id = "select_value_label_52")
     private WebElement selectCommittedUsage;
 
@@ -80,7 +84,7 @@ public class GoogleComputingEnginePage extends AbstractPage {
 
     public void waitGoogleComputingEngineElement(WebElement webElement) {
         new WebDriverWait(driver, 15)
-                .until(ExpectedConditions.elementToBeClickable(webElement));
+                .until(ExpectedConditions.visibilityOf(webElement));
     }
 
     @Override
@@ -90,7 +94,7 @@ public class GoogleComputingEnginePage extends AbstractPage {
 
     public GoogleComputingEnginePage fillForm() {
         driver.switchTo().frame(0);
-        driver.manage().window().maximize();
+        waitGoogleComputingEngineElement(numberOfInstances);
         numberOfInstances.click();
         numberOfInstances.sendKeys("4");
         selectMachineType.click();
@@ -104,8 +108,18 @@ public class GoogleComputingEnginePage extends AbstractPage {
         waitGoogleComputingEngineElement(select2x375);
         select2x375.click();
         selectCenterLocation.click();
-        waitGoogleComputingEngineElement(selectFrankfurt);
-        selectFrankfurt.click();
+
+        switch (TestDataReader.getTestData("place")) {
+            case "frankfurt":
+                waitGoogleComputingEngineElement(selectFrankfurt);
+                selectFrankfurt.click();
+                break;
+            case "osaka":
+                waitGoogleComputingEngineElement(selectOsaka);
+                selectOsaka.click();
+                break;
+        }
+
         selectCommittedUsage.click();
         waitGoogleComputingEngineElement(select1Year);
         select1Year.click();
@@ -130,6 +144,5 @@ public class GoogleComputingEnginePage extends AbstractPage {
         sendEmail.click();
         return this;
     }
-
 
 }

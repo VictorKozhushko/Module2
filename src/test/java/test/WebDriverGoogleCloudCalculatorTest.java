@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobject.google.GoogleCloudHomePage;
@@ -60,10 +61,10 @@ public class WebDriverGoogleCloudCalculatorTest {
 
     }
 
-//    @AfterMethod(alwaysRun = true)
-//    public void browserTearDown() {
-//        driver.quit();
-//        driver = null;
-//    }
+    @AfterMethod(alwaysRun = true)
+    public void browserTearDown() {
+        driver.quit();
+        driver = null;
+    }
 
 }

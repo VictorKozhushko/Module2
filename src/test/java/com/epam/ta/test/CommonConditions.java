@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeMethod;
 public class CommonConditions {
 
     protected static WebDriver driver;
-    private static final String RESOURCES_PATH = "src\\test\\resources\\";
 
     @BeforeMethod
     public static void setUp() {
@@ -18,7 +17,8 @@ public class CommonConditions {
 
     @AfterMethod(alwaysRun = true)
     public static void stopBrowser() {
-        DriverSingleton.closeDriver();
+
+//        DriverSingleton.closeDriver();
     }
 
 }

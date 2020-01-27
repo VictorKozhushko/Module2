@@ -17,7 +17,9 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
     @Test(description = "Test google cloud platform price calculator")
     public void googleCloudCalulatorTest() {
 
-        GoogleSearchResultsPage searchResultsPage = new GoogleCloudHomePage(driver).openPage().submitTerm(SEARCH);
+        GoogleSearchResultsPage searchResultsPage = new GoogleCloudHomePage(driver).
+                openPage().
+                submitTerm(SEARCH);
         GoogleComputingEnginePage computingEnginePage = searchResultsPage.firstSearchItem();
         computingEnginePage.fillForm();
 
@@ -31,6 +33,7 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
 
         tabs.remove(tabGoogleComputingEngine);
+
         String tab10MinutEmail = tabs.get(0);
 
         driver.switchTo().window(tab10MinutEmail);
