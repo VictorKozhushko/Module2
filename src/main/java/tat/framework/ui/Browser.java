@@ -11,7 +11,7 @@ import tat.framework.screen.BasePage;
 import java.io.File;
 import java.io.IOException;
 
-public class Browser extends BasePage {
+public class Browser {
 
     private static WebDriver driver;
 

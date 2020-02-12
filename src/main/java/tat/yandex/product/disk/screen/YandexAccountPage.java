@@ -1,4 +1,4 @@
-package taf;
+package tat.yandex.product.disk.screen;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,19 +6,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tat.framework.screen.BasePage;
 
 import java.util.List;
 
-public class YandexAccountPage {
-
-    private WebDriver driver;
+public class YandexAccountPage extends BasePage {
 
     private WebElement disk;
 
     private List<WebElement> advertisment;
 
-    public YandexAccountPage(WebDriver driver) {
-        this.driver = driver;
+    public YandexAccountPage() {
+        super();
         PageFactory.initElements(driver, this);
     }
 
@@ -40,7 +39,10 @@ public class YandexAccountPage {
             advertisment.get(0).click();
         }
 
-        return new YandexDiskPage(driver);
+        return new YandexDiskPage();
     }
 
+    public WebDriver getDriver(){
+        return driver;
+    }
 }

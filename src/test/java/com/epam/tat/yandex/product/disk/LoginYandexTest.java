@@ -1,7 +1,10 @@
 package com.epam.tat.yandex.product.disk;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import tat.framework.bo.AccountFactory;
+import tat.framework.driver.DriverSingleton;
+import tat.framework.ui.Browser;
 import tat.yandex.product.disk.screen.*;
 import tat.yandex.product.disk.service.AccountDisk;
 import tat.yandex.product.disk.service.AccountService;
@@ -19,17 +22,17 @@ public class LoginYandexTest {
     @Test(dependsOnMethods = {"testYandexLogingPage"})
     public void testYandexDisk() {
         new AccountDisk().switchToDisk();
-        YandexWordPage yandexWordPage = new YandexWordPage();
-        yandexWordPage.sendText("Hello world!").waitSavingOfDocument();
+
+        YandexWordPage yandexWordPage =  new YandexWordPage();
+        yandexWordPage.
+                sendText("Hello world!").waitSavingOfDocument();
         String documentName = yandexWordPage.getDocumentName();
-//        driver.close();
-//        driver.switchTo().window(yandexDriver);
-//        yandexDiskPage.deleteFile(documentName);
+        Browser browser = new Browser();
+
     }
 
-//    @AfterMethod(alwaysRun = true)
-//    public void browserTearDown() {
-//        driver.quit();
-//        driver = null;
-//    }
+    @AfterMethod(alwaysRun = true)
+    public void browserTearDown() {
+        DriverSingleton.closeDriver();
+    }
 }
