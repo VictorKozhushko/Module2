@@ -1,4 +1,4 @@
-package tat.framework.bo;
+package taf.framework.bo;
 
 public class Account {
 

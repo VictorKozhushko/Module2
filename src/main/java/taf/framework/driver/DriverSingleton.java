@@ -1,4 +1,4 @@
-package tat.framework.driver;
+package taf.framework.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +8,7 @@ public class DriverSingleton {
 
     private static WebDriver driver;
 
-    public DriverSingleton() { };
+    private DriverSingleton() { };
 
     public static WebDriver getDriver() {
         if (driver == null) {

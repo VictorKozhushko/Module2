@@ -1,13 +1,12 @@
-package tat.yandex.product.disk.screen;
+package taf.yandex.product.disk.screen;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import tat.framework.loger.Log;
-import tat.framework.screen.BasePage;
+import taf.framework.loger.Log;
+import taf.framework.screen.BasePage;
 
 public class YandexWordPage extends BasePage {
 
@@ -17,7 +16,7 @@ public class YandexWordPage extends BasePage {
     }
 
     public void waitYandexWordPage(By by) {
-        new WebDriverWait(driver, 5)
+        new WebDriverWait(driver, 6)
                 .until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -25,6 +24,7 @@ public class YandexWordPage extends BasePage {
         By paragraph = By.xpath("//p[@class='Paragraph']");
         waitYandexWordPage(paragraph);
         WebElement paragraphInput = driver.findElement(paragraph);
+        Log.info("Sending text"+string +" to Word document");
         paragraphInput.sendKeys(string);
         return this;
     }
