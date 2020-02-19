@@ -20,9 +20,8 @@ public class LoginYandexTest {
 
     @Test(dependsOnMethods = {"testYandexLogingPage"})
     public void testYandexDisk() {
-        new AccountDiskService().switchToDiskPage(yandexAccountPage);
+        YandexWordPage yandexWordPage = AccountDiskService.switchToDiskPage(yandexAccountPage);
 
-        YandexWordPage yandexWordPage = new YandexWordPage();
         yandexWordPage
                 .sendText("Hello world!")
                 .waitSavingOfDocument();

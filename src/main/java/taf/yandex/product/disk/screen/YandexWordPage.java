@@ -6,25 +6,26 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import taf.framework.loger.Log;
-import taf.framework.screen.BasePage;
+import taf.framework.ui.Browser;
 
-public class YandexWordPage extends BasePage {
+public class YandexWordPage extends Browser {
+
+    private By paragraph = By.xpath("//p[@class='Paragraph']");
 
     public YandexWordPage() {
         super();
         PageFactory.initElements(driver, this);
     }
 
-    public void waitYandexWordPage(By by) {
-        new WebDriverWait(driver, 6)
+    public WebElement waitYandexWordPage(By by) {
+        return new WebDriverWait(driver, 6)
                 .until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public YandexWordPage sendText(String string) {
-        By paragraph = By.xpath("//p[@class='Paragraph']");
-        waitYandexWordPage(paragraph);
+
         WebElement paragraphInput = driver.findElement(paragraph);
-        Log.info("Sending text"+string +" to Word document");
+        Log.info("Sending text " + string + " to Word document");
         paragraphInput.sendKeys(string);
         return this;
     }
@@ -34,9 +35,10 @@ public class YandexWordPage extends BasePage {
         new WebDriverWait(driver, 12)
                 .until(ExpectedConditions.visibilityOfElementLocated(titleSaved));
         WebElement saved = driver.findElement(titleSaved);
+        highlightElement(saved);
         Log.info("Saving of the Document");
         String stringSaved = saved.getText();
-        while (!stringSaved.equals("Сохранено в Yandex")){
+        while (!stringSaved.equals("Сохранено в Yandex")) {
             stringSaved = saved.getText();
         }
         return this;
@@ -46,6 +48,7 @@ public class YandexWordPage extends BasePage {
         By titleDocument = By.xpath("//div[@id='BreadcrumbTitle']");
         Log.info("Getting name of Document");
         WebElement title = driver.findElement(titleDocument);
+        highlightElement(title);
         String titleString = title.getText();
         return titleString;
     }

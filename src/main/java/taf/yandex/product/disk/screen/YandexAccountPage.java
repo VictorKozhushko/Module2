@@ -5,30 +5,32 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import taf.framework.screen.BasePage;
+import taf.framework.ui.Browser;
 
 import java.util.List;
 
-public class YandexAccountPage extends BasePage {
+public class YandexAccountPage extends Browser {
 
     private WebElement disk;
 
     private List<WebElement> advertisment;
+
+    private By diskButton = By.xpath("//a[@data-id='disk']");
 
     public YandexAccountPage() {
         super();
         PageFactory.initElements(driver, this);
     }
 
-    public void waitYandexAccountPage(By by) {
-        new WebDriverWait(driver, 3)
+    public WebElement waitYandexAccountPage(By by) {
+        return new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public YandexDiskPage switchToDisk() {
 
-        By diskButton = By.xpath("//a[@data-id='disk']");
-        waitYandexAccountPage(diskButton);
+
+        highlightElement(waitYandexAccountPage(diskButton));
         disk = driver.findElement(diskButton);
         disk.click();
 

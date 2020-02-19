@@ -4,11 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import taf.framework.loger.Log;
-import taf.framework.screen.BasePage;
+import taf.framework.ui.Browser;
 
-public class YandexLogInAccountPage extends BasePage {
+public class YandexLogInAccountPage extends Browser {
 
     private WebElement loginName;
+
+    private By loginLocator = By.xpath("//input[@id='passp-field-login']");
 
     public YandexLogInAccountPage() {
         super();
@@ -17,7 +19,8 @@ public class YandexLogInAccountPage extends BasePage {
 
     public YandexLogInPasswordPage loginToAccound(String login) {
         Log.info("Log in to accout via adding accountname");
-        loginName = driver.findElement(By.xpath("//input[@id='passp-field-login']"));
+        loginName = driver.findElement(loginLocator);
+        highlightElement(loginName);
         loginName.sendKeys(login);
         loginName.submit();
 

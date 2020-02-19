@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class AccountDiskService {
 
-    public void switchToDiskPage(YandexAccountPage yandexAccountPage) {
+    public static YandexWordPage switchToDiskPage(YandexAccountPage yandexAccountPage) {
 
         String yandexTab = DriverSingleton.getDriver().getWindowHandle();
 
@@ -41,5 +41,7 @@ public class AccountDiskService {
                 .until(ExpectedConditions.visibilityOfElementLocated(frame));
 
         DriverSingleton.getDriver().switchTo().frame(0);
+
+        return yandexWordPage;
     }
 }
