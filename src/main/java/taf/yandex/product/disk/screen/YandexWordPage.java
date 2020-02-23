@@ -24,9 +24,7 @@ public class YandexWordPage extends Browser {
 
     public YandexWordPage sendText(String string) {
 
-        WebElement paragraphInput = driver.findElement(paragraph);
-        Log.info("Sending text " + string + " to Word document");
-        paragraphInput.sendKeys(string);
+        type(paragraph, string);
         return this;
     }
 

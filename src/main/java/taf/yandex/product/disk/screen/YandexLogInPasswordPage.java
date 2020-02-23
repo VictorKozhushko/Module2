@@ -3,8 +3,6 @@ package taf.yandex.product.disk.screen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import taf.framework.loger.Log;
 import taf.framework.ui.Browser;
 
@@ -18,11 +16,9 @@ public class YandexLogInPasswordPage extends Browser {
     }
 
     public YandexAccountPage loginPasswordAccount(String password) {
-        WebElement loginPassword = new WebDriverWait(driver, 2)
-                .until(ExpectedConditions.visibilityOfElementLocated(loginPasswordLocator));
 
-        highlightElement(loginPassword);
-        loginPassword.sendKeys(password);
+        type(loginPasswordLocator, password);
+        WebElement loginPassword = driver.findElement(loginPasswordLocator);
         loginPassword.submit();
 
         Log.info("The password was submitted");

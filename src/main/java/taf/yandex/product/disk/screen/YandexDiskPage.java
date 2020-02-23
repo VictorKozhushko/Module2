@@ -12,7 +12,7 @@ public class YandexDiskPage extends Browser {
 
     private WebElement createFile;
 
-    private By button = By.xpath("//button[contains(@class, 'button2_tone_default')]");
+    private By buttonLocator = By.xpath("//button[contains(@class, 'button2_tone_default')]");
 
     private By textDocument = By.xpath("//span[contains(text(), 'документ')]");
 
@@ -21,22 +21,13 @@ public class YandexDiskPage extends Browser {
         PageFactory.initElements(driver, this);
     }
 
-    public WebElement waitYandexDiskPage(By by) {
-        return new WebDriverWait(driver, 2)
-                .until(ExpectedConditions.visibilityOfElementLocated(by));
-    }
-
     public YandexWordPage createFile() {
 
         driver.manage().window().maximize();
 
-        highlightElement(waitYandexDiskPage(button));
-        createFile = driver.findElement(button);
-        createFile.click();
+        click(buttonLocator);
 
-        highlightElement(waitYandexDiskPage(textDocument));
-        WebElement textFile = driver.findElement(textDocument);
-        textFile.click();
+        click(textDocument);
 
         return new YandexWordPage();
     }
