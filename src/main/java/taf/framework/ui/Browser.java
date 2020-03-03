@@ -11,7 +11,7 @@ import taf.framework.loger.Log;
 import java.io.File;
 import java.io.IOException;
 
-public class Browser {
+public final class Browser implements WrapsDriver {
 
     protected static WebDriver driver;
 
@@ -27,8 +27,7 @@ public class Browser {
     }
 
     protected Browser() {
-        driver = getDriver();
-        PageFactory.initElements(driver, this);
+        driver = BrowserFactory.getBrowser();
     }
 
     public void stopBrowser() {
@@ -36,24 +35,22 @@ public class Browser {
             if (getDriver() != null) {
                 getDriver().quit();
             }
-        }
-        catch (WebDriverException exc){
-            Log.info("Exception during closing browser "+exc.getMessage());
-        }
-        finally{
+        } catch (WebDriverException exc) {
+            Log.info("Exception during closing browser " + exc.getMessage());
+        } finally {
             instance.set(null);
         }
     }
 
-    public void type(By by, String text){
-        Log.info("Text "+text+" inserter into " +by.toString());
+    public void type(By by, String text) {
+        Log.info("Text " + text + " inserter into " + by.toString());
         WebElement webElement = waitWebElement(by);
         highlightElement(webElement);
         webElement.sendKeys(text);
     }
 
-    public void click(By by){
-        Log.info("Locator "+by.toString()+ " is clicked");
+    public void click(By by) {
+        Log.info("Locator " + by.toString() + " is clicked");
         WebElement webElement = waitWebElement(by);
         highlightElement(webElement);
         webElement.click();
@@ -87,6 +84,11 @@ public class Browser {
         if (driver == null) {
             driver = DriverSingleton.getDriver();
         }
+        return driver;
+    }
+
+    @Override
+    public WebDriver getWrappedDriver() {
         return driver;
     }
 }
